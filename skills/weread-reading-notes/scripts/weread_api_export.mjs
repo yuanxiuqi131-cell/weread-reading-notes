@@ -20,6 +20,7 @@ function usage() {
 Notes:
   - Credentials are read from WEREAD_API_KEY or --api-key-file <file>.
   - --out <dir> is required; confirm it with the user before formal exports.
+  - If no API key is available, get one at https://weread.qq.com/r/weread-skills.
   - Business parameters are sent flat in the JSON body, matching Tencent/WeChatReading.
   - Outputs use the formal WeRead_Reading_Notes structure.`);
 }
@@ -105,7 +106,12 @@ function formatDuration(seconds) {
 
 async function callApi(api_name, payload = {}) {
   const key = getApiKey();
-  if (!key) throw new Error("Missing WeChat Reading API key. Set WEREAD_API_KEY or pass --api-key-file <file>.");
+  if (!key) {
+    throw new Error([
+      "Missing WeChat Reading API key.",
+      "Get one at https://weread.qq.com/r/weread-skills, then either save it in a local text file and pass --api-key-file <file>, paste it for one-time use, or configure WEREAD_API_KEY.",
+    ].join(" "));
+  }
   const res = await fetch(ENDPOINT, {
     method: "POST",
     headers: {

@@ -30,7 +30,7 @@ Important distinction:
 - If the user pastes an API key during an interactive session, use it only for the current operation and do not save, log, or repeat it.
 - Read credentials from `WEREAD_API_KEY` or `--api-key-file <file>`.
 - Do not print, log, or write the key into output files.
-- If missing, offer user-friendly options: paste for one-time use, provide a local file path, or configure an environment variable.
+- If missing, do not just report failure. Give the official API-key setup guidance and offer user-friendly options: paste for one-time use, provide a local file path, or configure an environment variable.
 
 ## How Users Get an API Key
 
@@ -49,6 +49,27 @@ Plain-language guidance:
 5. Keep it private. Do not publish it or save it inside the skill folder.
 
 For non-technical users, recommend saving the key into a local text file and providing the path to Codex. For one-time tests, the user may paste the key in the current conversation; use it only for that operation and do not repeat or persist it.
+
+## Missing-Key Response
+
+When official API access is needed but no key is available, respond in plain language:
+
+```text
+需要先连接微信读书官方 API。
+
+获取方式：
+1. 打开 https://weread.qq.com/r/weread-skills
+2. 登录微信读书
+3. 找到“获取 API Key”
+4. 复制 API Key
+
+你可以选择：
+- 把 API Key 保存到本地文本文件，然后告诉我文件路径。
+- 临时贴给我，只用于这次操作，我不会保存或复述。
+- 如果你熟悉终端，也可以配置为 WEREAD_API_KEY。
+```
+
+Do not attempt official API export again until the user provides one of these credential sources.
 
 ## Helper Script
 

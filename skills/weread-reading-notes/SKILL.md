@@ -1,6 +1,6 @@
 ---
 name: weread-reading-notes
-description: Export, archive, and deeply analyze WeChat Reading notes into a traceable reading system. Use when Codex receives WeChat Reading Markdown exports, official WeChat Reading API access, reading-note files, or requests such as 导出微信读书笔记, 整理微信读书笔记, 生成归档版, 生成 AI 投喂版, 提取个人模型线索, 跨书个人模型索引, 阶段性阅读报告, 关注点流变, 书架统计, 阅读进度统计, 阅读上下文, or 微信读书笔记整理. Preserve original highlights and user comments before analysis, require the user to choose or confirm a storage path before writing formal outputs, distinguish explicit user thoughts from highlight-only inferences, use shelf/progress/reading statistics only as supporting context, and never ask for or store passwords, cookies, SMS codes, or API keys in chat.
+description: Export, archive, and deeply analyze WeChat Reading notes into a traceable reading system. Use when Codex receives WeChat Reading Markdown exports, official WeChat Reading API access, reading-note files, or requests such as 导出微信读书笔记, 整理微信读书笔记, 生成归档版, 生成 AI 投喂版, 提取个人模型线索, 跨书个人模型索引, 阶段性阅读报告, 关注点流变, 书架统计, 阅读进度统计, 阅读上下文, or 微信读书笔记整理. Preserve original highlights and user comments before analysis, require API-key setup guidance when official API access is needed but missing, require the user to choose or confirm a storage path before writing formal outputs, distinguish explicit user thoughts from highlight-only inferences, use shelf/progress/reading statistics only as supporting context, and never ask for or store passwords, cookies, or SMS codes.
 ---
 
 # WeRead Reading Notes
@@ -13,6 +13,7 @@ Use this phase order:
 
 ```text
 input/export
+-> API access guidance when needed
 -> destination selection
 -> raw evidence
 -> raw Markdown export
@@ -32,12 +33,34 @@ input/export
    - Installed Tencent/WeChatReading skill/tool when available.
    - Existing Markdown export.
    - Browser copy workflow only as an unstable fallback.
-2. After reading notebook overview, explain what the data can be used for and let the user choose the goal: backup, AI-ready material, personal model, stage report, or PKM candidates.
-3. Ask the user to choose or confirm the storage path before writing any formal output.
-4. Save raw evidence before analysis.
-5. Generate one raw export and one archived note per book.
-6. Generate analysis layers only when requested or implied by the selected goal.
-7. Apply the analysis depth gate before declaring cross-book or stage reports complete.
+2. If official API access is needed and no valid API key or API-key file path is available, give the API access guidance before any export attempt.
+3. After reading notebook overview, explain what the data can be used for and let the user choose the goal: backup, AI-ready material, personal model, stage report, or PKM candidates.
+4. Ask the user to choose or confirm the storage path before writing any formal output.
+5. Save raw evidence before analysis.
+6. Generate one raw export and one archived note per book.
+7. Generate analysis layers only when requested or implied by the selected goal.
+8. Apply the analysis depth gate before declaring cross-book or stage reports complete.
+
+## API Access Gate
+
+When the selected or implied mode is official API export, confirm that one credential source is available before calling the API:
+
+- local `WEREAD_API_KEY`
+- user-provided local API-key file path
+- one-time API key pasted by the user for the current operation
+
+If none is available, stop and guide the user:
+
+```text
+Official API access needs a WeChat Reading API key.
+Open https://weread.qq.com/r/weread-skills
+Log in to WeChat Reading, find "获取 API Key", copy the key, then choose one of:
+1. Save it in a local text file and give Codex the file path.
+2. Paste it for this one-time operation.
+3. Configure it as WEREAD_API_KEY if you are comfortable with terminal setup.
+```
+
+Prefer a local API-key file path for non-technical users. If the user pastes a key, use it only for the current operation; do not save, log, repeat, or write it into outputs.
 
 ## Destination
 

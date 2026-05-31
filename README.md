@@ -139,6 +139,8 @@ https://i.weread.qq.com/api/agent/gateway
 
 ## API key 安全和配置方式
 
+如果用户选择使用官方 API，但还没有提供 API key 或本地 API-key 文件路径，执行流程应先进入 API 获取引导，而不是直接运行导出。
+
 ### 如何获取 API key
 
 打开微信读书官方 Skill 页面：
@@ -229,6 +231,7 @@ WeRead_Reading_Notes/
 
 ```text
 输入 / 导出
+-> API 获取引导（如果需要）
 -> 用户确认存储路径
 -> API 原始证据
 -> 原始 Markdown
