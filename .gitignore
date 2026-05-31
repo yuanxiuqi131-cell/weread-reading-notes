@@ -1,0 +1,28 @@
+.DS_Store
+
+# User secrets
+*.env
+*.env.*
+*api_key*
+*apikey*
+weread_api_key.txt
+
+# Generated reading-note outputs
+WeRead_Reading_Notes/
+**/WeRead_Reading_Notes/
+01_api_evidence_API原始证据/
+02_raw_exports_原始导出/
+03_archived_notes_归档整理/
+04_ai_ready_AI投喂版/
+05_single_book_model_单书个人模型/
+06_cross_book_model_跨书个人模型/
+07_stage_reports_阶段性报告/
+08_reading_context_阅读上下文/
+90_index_索引/
+99_logs_运行日志/
+
+# Runtime/cache output
+node_modules/
+.cache/
+tmp/
+*.log

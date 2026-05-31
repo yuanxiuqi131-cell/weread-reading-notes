@@ -1,0 +1,4 @@
+interface:
+  display_name: "微信读书笔记整理"
+  short_description: "导出、归档、分析微信读书笔记与阅读上下文。"
+  default_prompt: "Use $weread-reading-notes to export, archive, and analyze WeChat Reading notes, preserving evidence while using shelf, progress, and reading statistics only as supporting context."
