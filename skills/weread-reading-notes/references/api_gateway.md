@@ -52,6 +52,8 @@ For non-technical users, recommend saving the key into a local text file and pro
 
 ## Helper Script
 
+The helper requires an explicit `--out <dir>` for every command that writes files. The agent must confirm this path with the user before running the script for formal outputs.
+
 Use:
 
 ```bash
@@ -89,7 +91,7 @@ Do not infer count meanings from field names alone.
 1. Fetch notebook overview through `/_list` or `/user/notebooks`.
 2. Present a plain-language overview: book count, total notes, highlights, comments, bookmarks, and top books by user comments/highlights.
 3. Explain possible use goals and ask the user to choose: backup, AI-ready material, personal model, stage report, or PKM candidates.
-4. Confirm export range and destination before writing formal outputs.
+4. Confirm export range and storage path before writing formal outputs. If the user has not provided a path, stop and ask.
 5. Save candidate list with title, author, bookId, highlight count, comment count, bookmark count, and progress when present.
 6. Confirm range for large batches.
 7. For each book, fetch highlights through `/book/bookmarklist`.

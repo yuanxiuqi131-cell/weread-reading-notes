@@ -40,27 +40,6 @@
 
 ## Skill 结构
 
-这个仓库的结构是：
-
-```text
-weread-reading-notes/
-├── README.md
-└── skills/
-    └── weread-reading-notes/
-        ├── SKILL.md
-        ├── agents/
-        ├── references/
-        └── scripts/
-```
-
-其中真正需要安装到 Codex 的 skill 目录是：
-
-```text
-skills/weread-reading-notes/
-```
-
-skill 内部结构是：
-
 ```text
 weread-reading-notes/
 ├── SKILL.md
@@ -80,10 +59,10 @@ weread-reading-notes/
 
 ## 安装
 
-将仓库里的 skill 文件夹复制到 Codex skills 目录：
+将整个 skill 文件夹复制到 Codex skills 目录：
 
 ```text
-skills/weread-reading-notes/ -> ~/.codex/skills/weread-reading-notes
+~/.codex/skills/weread-reading-notes
 ```
 
 安装后，确认：
@@ -217,6 +196,8 @@ WEREAD_API_KEY="your_api_key" node scripts/weread_api_export.mjs notebooks --out
 
 ## 推荐输出目录
 
+正式生成文件前，必须先让用户选择或确认存储路径。不要默认写入当前目录、skill 目录或 `Documents`。
+
 正式运行时建议输出到一个独立目录，例如：
 
 ```text
@@ -248,6 +229,7 @@ WeRead_Reading_Notes/
 
 ```text
 输入 / 导出
+-> 用户确认存储路径
 -> API 原始证据
 -> 原始 Markdown
 -> 完整归档版
@@ -302,6 +284,8 @@ WeRead_Reading_Notes/
 
 ## 常用脚本
 
+所有会写文件的脚本命令都必须显式提供 `--out <dir>`。正式导出前，应先和用户确认这个路径。
+
 列出有笔记的书：
 
 ```bash
@@ -354,10 +338,10 @@ node scripts/check_analysis_depth.mjs ./WeRead_Reading_Notes/07_stage_reports_�
 
 ## 迁移和分享
 
-分享或迁移时复制整个 skill 目录：
+分享时复制整个 skill 目录：
 
 ```text
-skills/weread-reading-notes/
+weread-reading-notes/
 ```
 
 接收方放到：

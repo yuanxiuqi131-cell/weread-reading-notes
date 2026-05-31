@@ -1,6 +1,6 @@
 ---
 name: weread-reading-notes
-description: Export, archive, and deeply analyze WeChat Reading notes into a traceable reading system. Use when Codex receives WeChat Reading Markdown exports, official WeChat Reading API access, reading-note files, or requests such as 导出微信读书笔记, 整理微信读书笔记, 生成归档版, 生成 AI 投喂版, 提取个人模型线索, 跨书个人模型索引, 阶段性阅读报告, 关注点流变, 书架统计, 阅读进度统计, 阅读上下文, or 微信读书笔记整理. Preserve original highlights and user comments before analysis, distinguish explicit user thoughts from highlight-only inferences, use shelf/progress/reading statistics only as supporting context, and never ask for or store passwords, cookies, SMS codes, or API keys in chat.
+description: Export, archive, and deeply analyze WeChat Reading notes into a traceable reading system. Use when Codex receives WeChat Reading Markdown exports, official WeChat Reading API access, reading-note files, or requests such as 导出微信读书笔记, 整理微信读书笔记, 生成归档版, 生成 AI 投喂版, 提取个人模型线索, 跨书个人模型索引, 阶段性阅读报告, 关注点流变, 书架统计, 阅读进度统计, 阅读上下文, or 微信读书笔记整理. Preserve original highlights and user comments before analysis, require the user to choose or confirm a storage path before writing formal outputs, distinguish explicit user thoughts from highlight-only inferences, use shelf/progress/reading statistics only as supporting context, and never ask for or store passwords, cookies, SMS codes, or API keys in chat.
 ---
 
 # WeRead Reading Notes
@@ -13,6 +13,7 @@ Use this phase order:
 
 ```text
 input/export
+-> destination selection
 -> raw evidence
 -> raw Markdown export
 -> complete archived note
@@ -32,7 +33,7 @@ input/export
    - Existing Markdown export.
    - Browser copy workflow only as an unstable fallback.
 2. After reading notebook overview, explain what the data can be used for and let the user choose the goal: backup, AI-ready material, personal model, stage report, or PKM candidates.
-3. Confirm the export range and destination before writing formal outputs.
+3. Ask the user to choose or confirm the storage path before writing any formal output.
 4. Save raw evidence before analysis.
 5. Generate one raw export and one archived note per book.
 6. Generate analysis layers only when requested or implied by the selected goal.
@@ -40,7 +41,19 @@ input/export
 
 ## Destination
 
-Use the user's provided path. For formal runs, prefer:
+Destination selection is a mandatory gate.
+
+Before creating files, ask the user where outputs should be stored unless the user already provided an explicit path in the current conversation. Do not silently use the current working directory, the skill folder, `Documents`, or a default output folder for formal outputs.
+
+When asking, present a plain-language choice:
+
+- Use an existing vault/project folder provided by the user.
+- Create a new folder at a user-approved path.
+- For quick tests only, use a temporary folder and say it will not be the formal archive.
+
+After the user chooses a parent path, create or use a `WeRead_Reading_Notes/` folder inside it unless the user asks for a different folder name.
+
+For formal runs, prefer this structure under the user-approved path:
 
 ```text
 WeRead_Reading_Notes/

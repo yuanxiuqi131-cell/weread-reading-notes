@@ -19,6 +19,7 @@ function usage() {
 
 Notes:
   - Credentials are read from WEREAD_API_KEY or --api-key-file <file>.
+  - --out <dir> is required; confirm it with the user before formal exports.
   - Business parameters are sent flat in the JSON body, matching Tencent/WeChatReading.
   - Outputs use the formal WeRead_Reading_Notes structure.`);
 }
@@ -27,6 +28,14 @@ function arg(name, fallback = "") {
   const idx = process.argv.indexOf(name);
   if (idx === -1 || idx + 1 >= process.argv.length) return fallback;
   return process.argv[idx + 1];
+}
+
+function requireOutDir() {
+  const out = arg("--out");
+  if (!out) {
+    throw new Error("Missing --out <dir>. Ask the user to choose a storage path before writing WeChat Reading outputs.");
+  }
+  return path.resolve(out);
 }
 
 function getApiKey() {
@@ -392,7 +401,7 @@ async function main() {
     usage();
     return;
   }
-  const outDir = path.resolve(arg("--out", "weread_export_output"));
+  const outDir = requireOutDir();
   ensureDir(outDir);
 
   if (command === "notebooks") {

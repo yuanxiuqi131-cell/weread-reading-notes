@@ -1,5 +1,17 @@
 # Output Structure
 
+## Destination Gate
+
+Before writing any formal output, confirm the destination with the user.
+
+Rules:
+
+- If the user already gave an explicit output path in the current conversation, use that path and repeat it back before writing.
+- If no path was given, ask for a storage path before creating files.
+- Do not silently write formal outputs to the current working directory, `Documents`, the skill folder, or a default folder.
+- Use temporary folders only for tests, and label them as temporary.
+- After the user selects a parent path, create or use `WeRead_Reading_Notes/` inside it unless the user asks for a different folder name.
+
 ## Formal Folder Layout
 
 ```text
